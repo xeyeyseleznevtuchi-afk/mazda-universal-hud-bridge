@@ -26,3 +26,7 @@ add_test(NAME native_guidance COMMAND mazda_hud_tests)
 add_executable(mazda_vbs_tests tests/test_vbs.cpp)
 target_link_libraries(mazda_vbs_tests PRIVATE mazda_hud_core)
 add_test(NAME vbs_staging COMMAND mazda_vbs_tests)
+
+add_executable(mazda_vbs_sender_tests tests/test_vbs_sender.cpp)
+target_link_libraries(mazda_vbs_sender_tests PRIVATE mazda_hud_core)
+add_test(NAME vbs_sender_guard COMMAND mazda_vbs_sender_tests)
