@@ -1,0 +1,17 @@
+name: Offline unit tests
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python adapters
+        run: python3 -m unittest discover -s tests -v
+      - name: Configure native build
+        run: cmake -S native -B build/native -DCMAKE_BUILD_TYPE=Debug
+      - name: Compile native core
+        run: cmake --build build/native --parallel
+      - name: Run native tests
+        run: ctest --test-dir build/native --output-on-failure
