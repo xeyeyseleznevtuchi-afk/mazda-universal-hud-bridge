@@ -1,0 +1,12 @@
+{
+  "app": "Yandex Navigator",
+  "maneuver": "right",
+  "distance_m": 270,
+  "road": "улица Пушкина",
+  "lanes": [
+    0,
+    1,
+    1
+  ],
+  "active": true
+}

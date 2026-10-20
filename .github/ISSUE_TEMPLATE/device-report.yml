@@ -1,0 +1,29 @@
+name: Hardware compatibility report
+description: Report supported or unsupported vehicle/HUD setup without personal data.
+title: "[HW] "
+labels: [hardware]
+body:
+  - type: markdown
+    attributes:
+      value: "Remove VIN, MAC address, serial numbers, exact routes and logs containing private data."
+  - type: input
+    id: car
+    attributes:
+      label: Car model and year
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Mazda Connect firmware
+    validations:
+      required: true
+  - type: dropdown
+    id: hud
+    attributes:
+      label: HUD type
+      options: [Green monochrome combiner, Color combiner, Windshield projection, Unknown]
+  - type: textarea
+    id: results
+    attributes:
+      label: What did you observe while safely parked?

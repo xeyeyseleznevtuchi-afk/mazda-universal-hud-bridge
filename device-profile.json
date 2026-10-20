@@ -1,0 +1,15 @@
+{
+  "firmware": "74.00.324A",
+  "vehicle": "CX-3 pre-facelift",
+  "hud": "green_prefacelift",
+  "wireless_module": "ET-1594 / TK78-66-9U0C, Ver.P3.1 (reported)",
+  "transport": "unverified",
+  "installable": false,
+  "goal_apps": [
+    "Yandex Navigator",
+    "Yandex Maps",
+    "Google Maps",
+    "Waze",
+    "other Android Auto nav event emitters"
+  ]
+}
