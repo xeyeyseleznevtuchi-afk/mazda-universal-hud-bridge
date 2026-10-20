@@ -32,6 +32,10 @@ Open research and simulator for routing Android Auto navigation events to Mazda 
 - Binary `LD_PRELOAD` patches, flashed firmware, USB installer or uninstall script.
 - Verified compatibility with the pre-facelift green HUD and Yandex Navigator on P3.1.
 
+## USB preflight (read-only)
+
+A new non-installing device diagnostic is available at [diagnostic/usb-preflight.sh](diagnostic/usb-preflight.sh) with [offline safety tests](docs/USB-PREFLIGHT.md). It does not auto-run from USB and cannot install a HUD mod.
+
 ## Device inspection (v0.3)
 
 A **read-only**, manually run CMU diagnostic is available at [diagnostic/inspect-cmu.sh](diagnostic/inspect-cmu.sh). It produces a sanitized report of service availability and potential conflicts. See [DIAGNOSTIC.md](docs/DIAGNOSTIC.md). It is not a USB installer, and it must not be run without authorized device shell access.
