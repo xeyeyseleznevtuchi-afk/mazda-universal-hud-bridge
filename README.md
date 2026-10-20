@@ -20,13 +20,14 @@ Open research and simulator for routing Android Auto navigation events to Mazda 
 ## What works now
 
 - Application-independent normalization of synthetic guidance events.
+- Offline Android Auto GAL and CarPlay iAP2 **decoded-event adapters** with explicit maneuver whitelists; [details](docs/ADAPTERS.md).
 - Conservative profile for green HUD (`turn`, `distance`) and experimental extended profile (`road`, `lanes`).
 - Offline Python test suite; no real CMU access required.
 - Safety and hardware-compatibility documentation; no blind modification of existing tweaks.
 
 ## What is **not** implemented
 
-- Reading live Android Auto protocol traffic from the aftermarket hub.
+- Reading live Android Auto / CarPlay protocol traffic from the aftermarket hub (the new adapters receive decoded dictionaries, not protocol bytes).
 - Writing frames to the factory HUD from this Python project.
 - Binary `LD_PRELOAD` patches, flashed firmware, USB installer or uninstall script.
 - Verified compatibility with the pre-facelift green HUD and Yandex Navigator on P3.1.
@@ -49,7 +50,8 @@ Android navigation app (Yandex / Google / Waze / ...)
   -> Android Auto on smartphone
   -> P3.1 aftermarket hub [TRANSPORT TO VERIFY]
   -> Mazda OEM aap_service / jciAAPA [TO VERIFY]
-  -> AA navigation events / adapter [NOT YET IMPLEMENTED HERE]
+  -> OEM protocol decoder [NOT YET IMPLEMENTED HERE]
+  -> decoded-event adapter (nav_adapters.py) [OFFLINE]
   -> canonical event schema (hud_core.py) [OFFLINE]
   -> capability-aware HUD renderer [NOT YET IMPLEMENTED]
   -> Mazda OEM HUD protocol / green HUD [HARDWARE TEST NEEDED]
