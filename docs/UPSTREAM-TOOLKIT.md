@@ -1,31 +1,37 @@
-# Upstream toolkit evaluation — 2026-10-20
+# Upstream Mazda Toolkit evaluation (corrected 2026-10-20)
 
-## Source material
+Source: https://mazda-toolkit.monodev.org/
+Repository link previously assessed: https://github.com/ilshyma/mazda-hud-toolkit
 
-- https://github.com/ilshyma/mazda-hud-toolkit
-- https://github.com/ilshyma/mazda-hud-toolkit/releases
-- https://github.com/KidMixer/mazda-carplay-hud
-- https://github.com/VitaliyKurokhtin/oem-aa-mod
+## Correction: the toolkit supports BOTH Android Auto and CarPlay
 
-A third-party Mazda owner reported installing via the Toolkit website. This is **not** evidence of compatibility with the project's CX-3 test car.
+The upstream website explicitly advertises:
+- CarPlay + Android Auto HUD maneuver arrows, distance and speed.
+- USB-only on-screen installation, verification and rollback, with optional SSH tooling for advanced work.
+- Mazda CX-3 DK 2015–2022 among supported EU CMU150 firmware 74.00.324 vehicles.
+- An integrated build based on KidMixer/mazda-carplay-hud and VitaliyKurokhtin/oem-aa-mod.
+- A km/h fix and a speed-limit keep-alive helper for supported systems.
+- Four installed shims checked in the on-screen validation tool.
 
-## What the toolkit supplies
+These are **developer claims**, not an independent test on our 2015 CX-3,
+74.00.324A-EU with green flip-up HUD and ET-1594 wireless hub.
+The third-party owner's installation report is not a test on our vehicle.
+The website's categorical claim that the mod 'cannot brick' is NOT a safety
+guarantee, especially where boot-time service configurations change.
 
-The toolkit packages a CarPlay-specific shim and an installer/user interface for Mazda CMU150 74.00.324; its tested example is a 2018 EU CX-9. Its releases also document USB root/SSH access, checksum verification, automatic post-reboot validation and rollback. The tool's current installation path may still use commands, SSH and privileged changes; a friendly menu does **not** prove a no-command USB installation is universal.
+## Consequences for Universal HUD Bridge
 
-KidMixer's CarPlay patch has an OEM VBS_NAVI transport using `libjcidbus`, an existing `hud_send` implementation and a USB DataRetrieval installer described in `install/INSTALL.md`. Its `LD_PRELOAD` target is `jciCARPLAY`; the Android Auto path uses different shims (`jciAAPA` / `aap_service`) in oem-aa-mod.
+Do not reinvent a native VBS transmitter or an Android Auto decoding hook
+without reviewing the integrated upstream implementation, its license,
+install/rollback paths and firmware compatibility checks.
 
-## Reuse decision
+Before modifying the test car:
+1. Audit Toolkit source/release hashes and installation/removal behavior.
+2. Audit preservation of existing service configurations and other tweaks.
+3. Verify pre-facelift GREEN HUD support, not merely Mazda CX-3 model name.
+4. Check AA events from Yandex Navigator (not just Google Maps).
+5. Check OEM wireless module coexistence, no loss of working AA/audio.
+6. Offer dry-run diagnostics and reversible rollback prior to installation.
 
-1. Keep Android Auto and CarPlay capture as **separate adapters**.
-2. Investigate a **shared VBS_NAVI sender** using KidMixer's original sources and their AGPL-3.0 attribution; do not reimplement undocumented D-Bus endpoints from guesses.
-3. Build a unified installer that checks the firmware and OEM service profile; stage changes transactionally, preserve unrelated `LD_PRELOAD` values, and do not restore entire `sm.conf` / `sm_WCP.conf` over user changes.
-4. Use USB DataRetrieval if it can be made verifiably reversible and compatible with the target. Do not require SSH as the only installation option.
-5. Validate wired and wireless mode separately. Never assume green pre-facelift ADD is compatible with a color HUD implementation.
-6. Require proof of actual emitted AA guidance events (especially Yandex Navigator) before advertising app compatibility.
-
-## First test vehicle
-
-2015 Japan-market CX-3, EU 74.00.324A, green flip-up HUD, aftermarket wireless Android Auto USB hub. A Japanese navigation SD card is present but rejected by the EU firmware. This rules out treating a physically inserted SD card as evidence that OEM navigation operates.
-
-No actual OEM VBS sender or installable artifact is delivered by this documentation commit. Native `VbsSender` remains a guarded mock interface.
+Our existing Python/C++ adapters and fake-bus VBS interface remain research
+components and do not constitute a functioning alternative to the Toolkit.
